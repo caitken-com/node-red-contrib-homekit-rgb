@@ -10,12 +10,28 @@ Output of [HomeKit light accessory](https://nrchkb.github.io/wiki/service/lightb
 * *msg.payload.Saturation* **{float}** `0.0` to `100.0`
 * *msg.payload.Brightness* **{int}** `0` to `100`
 * *msg.payload.ColorTemperature* **{int}** `140` to `500`
-* *msg.payload.On* **{bool}** `true`|`false`
+
+Or, to convert from RGB:
+
+* *msg.payload.r* **{int}** Red channel `0` to `255`
+* *msg.payload.g* **{int}** Green channel `0` to `255`
+* *msg.payload.b* **{int}** Blue channel `0` to `255`
+
+Or, to convert from XY:
+
+* *msg.payload.x* **{float}** X channel
+* *msg.payload.y* **{float}** Y channel
 
 ## Output
 
-The original input message (pass-though), plus following additional data:
+The original input message (pass-though), plus _all of following_ conversions (rgb, hsb, xy, megakelvin)
 
-* *msg.payload.r* **{int}** `0` to `255`
-* *msg.payload.g* **{int}** `0` to `255`
-* *msg.payload.b* **{int}** `0` to `255`
+* *msg.payload.r* **{int}** Red channel `0` to `255`
+* *msg.payload.g* **{int}** Green channel `0` to `255`
+* *msg.payload.b* **{int}** Blue channel `0` to `255`
+* *msg.payload.x* **{float}** X channel
+* *msg.payload.y* **{float}** Y channel
+* *msg.payload.Hue* **{float}** Hue `0.0` to `360.0`
+* *msg.payload.Saturation* **{float}** Saturation `0.0` to `100.0`
+* *msg.payload.Brightness* **{int}** Brightness`0` to `100`
+* *msg.payload.ColorTemperature* **{int}** Mega Kelvin `150` to `500`

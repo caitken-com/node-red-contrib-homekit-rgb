@@ -36,7 +36,7 @@ module.exports = function(RED)
 			if ('ColorTemperature' in msg.payload)
 			{
 				// Conversions
-				const rgb = kelvin2rgb(msg.payload.ColorTemperature);
+				const rgb = kelvin2rgb(msg.payload.ColorTemperature * 10);
 				const hsv = rgb2hsv(rgb.r, rgb.g, rgb.b);
 				const xy = rgb2xy(rgb.r, rgb.g, rgb.b);
 
@@ -70,7 +70,7 @@ module.exports = function(RED)
 				msg.payload.g = rgb.g;
 				msg.payload.b = rgb.b;
 
-				msg.payload.ColorTemperature = kelvin;
+				msg.payload.ColorTemperature = kelvin / 10;
 
 				msg.payload.Hue = hsv.h;
 				msg.payload.Saturation = hsv.s;
@@ -97,7 +97,7 @@ module.exports = function(RED)
 				msg.payload.Saturation = hsv.s;
 				msg.payload.Brightness = hsv.v;
 
-				msg.payload.ColorTemperature = kelvin;
+				msg.payload.ColorTemperature = kelvin / 10;
 
 				// Update cache
 				nodeContext.set('h', hsv.h);
@@ -109,8 +109,8 @@ module.exports = function(RED)
 			{
 				// Conversions
 				const rgb = hsv2rgb(hue, sat, bri);
-				const kelvin = rgb2kelvin(rgb.r, rgb.g, rgb, rgb.b);
-				const xy = rgb2xy(rgb.r, rgb.g, rgb, rgb.b);
+				const kelvin = rgb2kelvin(rgb.r, rgb.g, rgb.b);
+				const xy = rgb2xy(rgb.r, rgb.g, rgb.b);
 
 				// Prep output
 				msg.payload.r = rgb.r;
@@ -120,7 +120,7 @@ module.exports = function(RED)
 				msg.payload.x = xy.x;
 				msg.payload.y = xy.y;
 
-				msg.payload.ColorTemperature = kelvin;
+				msg.payload.ColorTemperature = kelvin / 10;
 
 				msg.payload.Hue = hue;
 				msg.payload.Saturation = sat;
@@ -175,16 +175,20 @@ module.exports = function(RED)
 		 */
 		function rgb2hsv(r, g, b)
 		{
+			r /= 255;
+			g /= 255;
+			b /= 255;
+
 			let v = Math.max(r, g, b);
 			let c = v - Math.min(r, g, b);
 			let h = c && ((v == r) ? (g - b) / c : ((v == g) ? 2 + (b - r) / c : 4 + (r - g) / c));
 
 			return {
-				h: 60 * (h < 0 ? h + 6 : h),
-				s: (v && c / v) * 100,
-				v: v * 100
+				h: Math.round(60 * (h < 0 ? h + 6 : h)),
+				s: Math.round((v && c / v) * 100),
+				v: Math.round(v * 100)
 			}
-		  }
+		}
 
 
 		/**

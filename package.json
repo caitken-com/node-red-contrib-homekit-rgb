@@ -17,10 +17,10 @@
 		"node": ">=14.18.1"
 	},
 	"bugs": {
-		"url": "https://github.com/caitken-com/node-red-contrib-daikin-api/issues"
+		"url": "https://github.com/caitken-com/node-red-contrib-homekit-rgb/issues"
 	},
 	"author": "Christopher Aitken",
-	"homepage": "https://github.com/caitken-com",
+	"homepage": "https://github.com/caitken-com/node-red-contrib-homekit-rgb",
 	"license": "MIT",
 	"node-red": {
 		"version": ">=2.0.0",

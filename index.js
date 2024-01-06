@@ -62,7 +62,7 @@ module.exports = function(RED)
 			{
 				// Conversions
 				const rgb = xy2rgb(msg.payload.x, msg.payload.y);
-				const kelvin = rgb2kelvin(rgb.r, rgb.g, rgb, rgb.b);
+				const kelvin = rgb2kelvin(rgb.r, rgb.g, rgb.b);
 				const hsv = rgb2hsv(rgb.r, rgb.g, rgb.b);
 
 				// Prep output
